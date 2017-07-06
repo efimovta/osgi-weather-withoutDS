@@ -5,7 +5,7 @@ import edu.efimovta.liferay.osgi.weather.dto.Weather;
 /**
  * Created by eta on 7/5/2017.
  */
-public class WeatherImpl implements Weather{
+public class WeatherImpl implements Weather {
     private String source;
     private String city;
     private String country;

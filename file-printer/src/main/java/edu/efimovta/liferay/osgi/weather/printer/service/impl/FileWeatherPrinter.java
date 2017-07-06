@@ -15,13 +15,6 @@ public class FileWeatherPrinter implements WeatherPrinter {
     private final String path = "..//..//testFile2.txt";
 
     public void print(Weather weather) throws WeatherPrinterException {
-
-        System.out.println("################## ActivatorApp start(); process 2");
-//        Weather w = new Weather("ogo1");
-        System.out.println(weather.getSource());
-        System.out.println(weather.getSource());
-        System.out.println(weather.getSource());
-        System.out.println(weather.getSource());
         try {
             FileOutputStream out = new FileOutputStream(path);
 

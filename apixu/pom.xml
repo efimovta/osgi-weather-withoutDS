@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>weather.parent-project</artifactId>
@@ -32,7 +32,8 @@
                     <instructions>
                         <Bundle-Name>ApixuWeatherGetter</Bundle-Name>
                         <Bundle-Description>provide ApixuWeatherGetter service (using json)</Bundle-Description>
-                        <Bundle-Activator>edu.efimovta.liferay.osgi.weather.service.impl.ActivatorApixuWeatherGetter</Bundle-Activator>
+                        <Bundle-Activator>edu.efimovta.liferay.osgi.weather.service.impl.ActivatorApixuWeatherGetter
+                        </Bundle-Activator>
                         <Export-Package/>
                     </instructions>
                 </configuration>

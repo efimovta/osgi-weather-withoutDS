@@ -1,6 +1,7 @@
 package edu.efimovta.liferay.osgi.weather.service.impl;
 
 import edu.efimovta.liferay.osgi.weather.dto.Weather;
+import edu.efimovta.liferay.osgi.weather.dto.impl.WeatherImpl;
 import edu.efimovta.liferay.osgi.weather.service.WeatherGetter;
 import edu.efimovta.liferay.osgi.weather.service.WeatherGetterException;
 import org.w3c.dom.Document;
@@ -17,19 +18,18 @@ import java.io.IOException;
  */
 
 public class ApixuXmlWeatherGetter implements WeatherGetter {
+    private final String sourceUrl = "http://api.apixu.com/v1/forecast.xml";
     double lon = 59.89;
     double lan = 30.26;
     String key = "3579985690364f38a1030507170407";
     String date = "2017-07-05";
-    private final String sourceUrl = "http://api.apixu.com/v1/forecast.xml";
-
 
     public Weather get() throws WeatherGetterException {
         try {
 
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
-            String url = sourceUrl+"?key="+key+"&q="+lon+","+lan+"&dt="+date;
+            String url = sourceUrl + "?key=" + key + "&q=" + lon + "," + lan + "&dt=" + date;
             Document document = builder.parse(url);
             Element root = document.getDocumentElement();
 
@@ -50,7 +50,7 @@ public class ApixuXmlWeatherGetter implements WeatherGetter {
             double maxtemp_c = Double.parseDouble(day.getElementsByTagName("maxtemp_c").item(0).getTextContent());
 
 
-            return new Weather(source,city, country, lat, lon, conditionText, avgtemp_c, mintemp_c, maxtemp_c);
+            return new WeatherImpl(source, city, country, lat, lon, conditionText, avgtemp_c, mintemp_c, maxtemp_c);
 
         } catch (ParserConfigurationException | SAXException | IOException e) {
             throw new WeatherGetterException(e);

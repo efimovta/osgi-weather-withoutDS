@@ -1,8 +1,7 @@
 package edu.efimovta.liferay.osgi.weather;
 
-import edu.efimovta.liferay.osgi.weather.dto.Weather;
-import edu.efimovta.liferay.osgi.weather.printer.service.impl.FileWeatherPrinter;
 import edu.efimovta.liferay.osgi.weather.printer.service.WeatherPrinter;
+import edu.efimovta.liferay.osgi.weather.printer.service.impl.FileWeatherPrinter;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceRegistration;
@@ -16,7 +15,6 @@ public class ActivatorFileWeatherPrinter implements BundleActivator {
     private ServiceRegistration registration;
 
     public void start(BundleContext context) throws Exception {
-//        Weather w = new Weather("ogo1");
         registration = context.registerService(WeatherPrinter.class.getName(), new FileWeatherPrinter(), null);
         System.out.println("###########WeatherPrinter Service Registered Successfully ##############");
     }

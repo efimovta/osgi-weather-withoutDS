@@ -4,6 +4,7 @@ import com.liferay.portal.kernel.json.JSONException;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import edu.efimovta.liferay.osgi.weather.dto.Weather;
+import edu.efimovta.liferay.osgi.weather.dto.impl.WeatherImpl;
 import edu.efimovta.liferay.osgi.weather.service.WeatherGetter;
 import edu.efimovta.liferay.osgi.weather.service.WeatherGetterException;
 import org.apache.http.HttpResponse;
@@ -22,17 +23,16 @@ import static org.apache.http.HttpHeaders.USER_AGENT;
  */
 
 public class ApixuWeatherGetter implements WeatherGetter {
+    private final String sourceUrl = "http://api.apixu.com/v1/forecast.json";
     double lon = 59.89;
     double lan = 30.26;
     String key = "3579985690364f38a1030507170407";
     String date = "2017-07-05";
-    private final String sourceUrl = "http://api.apixu.com/v1/forecast.json";
 
     private String getJsonFromSource() throws IOException {
         HttpClient client = HttpClientBuilder.create().build();
 
-        String url = sourceUrl+"?key="+key+"&q="+lon+","+lan+"&dt="+date;
-        System.out.println("SOURCE URL HERE : "+url);
+        String url = sourceUrl + "?key=" + key + "&q=" + lon + "," + lan + "&dt=" + date;
         HttpGet request = new HttpGet(url);
 
         request.addHeader("User-Agent", USER_AGENT);
@@ -70,7 +70,7 @@ public class ApixuWeatherGetter implements WeatherGetter {
             double mintemp_c = day.getDouble("mintemp_c");
             double maxtemp_c = day.getDouble("maxtemp_c");
 
-            return new Weather(source,city, country, lat, lon, conditionText, avgtemp_c, mintemp_c, maxtemp_c);
+            return new WeatherImpl(source, city, country, lat, lon, conditionText, avgtemp_c, mintemp_c, maxtemp_c);
 
         } catch (JSONException | IOException e) {
             throw new WeatherGetterException(e);
