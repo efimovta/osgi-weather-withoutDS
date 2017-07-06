@@ -34,6 +34,16 @@
                         <Bundle-Description>provide ApixuWeatherGetter service (using json)</Bundle-Description>
                         <Bundle-Activator>edu.efimovta.liferay.osgi.weather.service.impl.ActivatorApixuWeatherGetter
                         </Bundle-Activator>
+                        <Import-Package>
+                            com.liferay.portal.kernel.json,
+                            edu.efimovta.liferay.osgi.weather.dto,
+                            edu.efimovta.liferay.osgi.weather.dto.impl,
+                            edu.efimovta.liferay.osgi.weather.service,
+                            org.apache.http,org.apache.http.client,
+                            org.apache.http.client.methods,
+                            org.apache.http.impl.client,
+                            org.osgi.framework
+                        </Import-Package>
                         <Export-Package/>
                     </instructions>
                 </configuration>
