@@ -8,38 +8,48 @@ import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by eta on 7/5/2017.
  */
 public class ActivatorApp implements BundleActivator {
+    WeatherGetterTracker tracker;
 
     public void start(BundleContext context) throws Exception {
         System.out.println("ActivatorApp start(); 1");
-        ServiceReference ref = context.getServiceReference(WeatherGetter.class.getName());
-        ServiceReference ref2 = context.getServiceReference(WeatherPrinter.class.getName());
-        WeatherGetter weatherGetter;
+        tracker = new WeatherGetterTracker(context);
+
+        ServiceReference ref = context.getServiceReference(WeatherPrinter.class.getName());
         WeatherPrinter weatherPrinter;
         if (ref != null) {
-            weatherGetter = (WeatherGetter) context.getService(ref);
-        } else {
-            System.err.println("Couldn't find WeatherGetter...");
-            return;
-        }
-        if (ref2 != null) {
-            weatherPrinter = (WeatherPrinter) context.getService(ref2);
+            weatherPrinter = (WeatherPrinter) context.getService(ref);
         } else {
             System.err.println("Couldn't find WeatherPrinter...");
+            tracker.close();
+            return;
+        }
+        List<WeatherGetter> weatherGetters = tracker.getAll();
+        if (weatherGetters.size() == 0) {
+            System.err.println("Couldn't find WeatherGetter...");
+            tracker.close();
             return;
         }
 
-        Weather weather = weatherGetter.get();
-        weatherPrinter.print(weather);
+        List<Weather> weathers = new ArrayList<>();
+        for (WeatherGetter weatherGetter : weatherGetters) {
+            Weather weather = weatherGetter.get();
+            weathers.add(weather);
+        }
+        weatherPrinter.print(weathers);
 
         context.ungetService(ref);
-        context.ungetService(ref2);
+        tracker.close();
+
+        System.out.println("ActivatorApp start(); 2");
     }
 
     public void stop(BundleContext bundleContext) throws Exception {
-
     }
 }

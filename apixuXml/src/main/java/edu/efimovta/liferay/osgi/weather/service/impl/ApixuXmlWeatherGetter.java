@@ -18,6 +18,7 @@ import java.io.IOException;
  */
 
 public class ApixuXmlWeatherGetter implements WeatherGetter {
+    private final String source = "apixu.com - xml";
     private final String sourceUrl = "http://api.apixu.com/v1/forecast.xml";
     double lon = 59.89;
     double lan = 30.26;
@@ -39,7 +40,6 @@ public class ApixuXmlWeatherGetter implements WeatherGetter {
             Element day = (Element) forecastday.getElementsByTagName("day").item(0);
             Element condition = (Element) day.getElementsByTagName("condition").item(0);
 
-            String source = "apixu.com - xml";
             String city = location.getElementsByTagName("name").item(0).getTextContent();
             String country = location.getElementsByTagName("country").item(0).getTextContent();
             double lat = Double.parseDouble(location.getElementsByTagName("lat").item(0).getTextContent());

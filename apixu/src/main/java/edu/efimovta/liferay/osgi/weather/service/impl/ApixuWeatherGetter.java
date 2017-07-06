@@ -23,6 +23,7 @@ import static org.apache.http.HttpHeaders.USER_AGENT;
  */
 
 public class ApixuWeatherGetter implements WeatherGetter {
+    private final String source = "apixu.com - json";
     private final String sourceUrl = "http://api.apixu.com/v1/forecast.json";
     double lon = 59.89;
     double lan = 30.26;
@@ -59,7 +60,6 @@ public class ApixuWeatherGetter implements WeatherGetter {
                     .getJSONObject("day");
             JSONObject condition = day.getJSONObject("condition");
 
-            String source = "apixu.com - json";
             String city = location.getString("name");
             String country = location.getString("country");
             double lat = location.getDouble("lat");
